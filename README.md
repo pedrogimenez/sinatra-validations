@@ -1,5 +1,7 @@
 # Sinatra validations
 
+[![Build Status](https://img.shields.io/travis/pedrogimenez/sinatra-validations/master.svg)](https://travis-ci.org/pedrogimenez/sinatra-validations)
+
 I use this library to validate parameters in my Sinatra applications.
 
 It supports defaults and type coercion.
