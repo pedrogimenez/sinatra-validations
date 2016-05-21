@@ -6,7 +6,7 @@ module Sinatra
 
     InvalidParameter = Class.new(RuntimeError)
 
-    def validate(parameters, name, options = {})
+    def validate(parameters, key, options = {})
       default  = options[:default]
       type     = options[:type]
       cast     = true
@@ -15,46 +15,46 @@ module Sinatra
         cast = options[:cast]
       end
 
-      param = parameters[name]
+      param = parameters[key]
 
       if !param
         if options.key?(:default)
-          return param = parameters[name] = default
+          return param = parameters[key] = default
         end
 
-        raise InvalidParameter.new("Missing required parameter #{name}")
+        raise InvalidParameter.new("Missing required parameter #{key}")
       end
 
       if cast
         if type == Integer
-          param = parameters[name] = cast_into_integer(param)
+          param = parameters[key] = cast_into_integer(param, key)
         elsif type == String
-          param = parameters[name] = cast_into_string(param)
+          param = parameters[key] = cast_into_string(param, key)
         else
-          raise InvalidParameter.new("Unsupported casting for #{name}")
+          raise InvalidParameter.new("Unsupported casting for #{key}")
         end
       end
 
       if type && !param.is_a?(type)
-        raise InvalidParameter.new("Wrong type for #{name}. Expected #{type}, got #{param.class}")
+        raise InvalidParameter.new("Wrong type for #{key}. Expected #{type}, got #{param.class}")
       end
     end
 
     private
 
-    def cast_into_integer(param)
+    def cast_into_integer(param, key)
       begin
         Integer(param)
       rescue
-        raise InvalidParameter.new("Unable to convert #{name} into Integer")
+        raise InvalidParameter.new("Unable to convert #{key} into Integer")
       end
     end
 
-    def cast_into_string(param)
+    def cast_into_string(param, key)
       begin
         String(param)
       rescue
-        raise InvalidParameter.new("Unable to convert #{name} into String")
+        raise InvalidParameter.new("Unable to convert #{key} into String")
       end
     end
 
