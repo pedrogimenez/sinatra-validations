@@ -1,7 +1,7 @@
 Gem::Specification.new do |spec|
   spec.name                   = "sinatra-validations"
-  spec.version                = "1.0.0"
-  spec.date                   = "2016-05-18"
+  spec.version                = "1.0.1"
+  spec.date                   = "2016-05-21"
   spec.summary                = "Validation of params for Sinatra"
   spec.description            = "Validation of params for Sinatra"
   spec.authors                = ["Pedro Gimenez"]
